@@ -13,18 +13,23 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
-
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 @login_required
-def index():
+def add():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
-        return redirect(url_for('index'))
+        return redirect(url_for('add'))
+    return render_template('add.html', title='New Post', form=form)
+
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/Mysubscriptions', methods=['GET', 'POST'])
+@login_required
+def index():
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -32,9 +37,8 @@ def index():
         if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('index.html', title='Home', form=form,
-                           posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+    return render_template('index.html', title='Home', posts=posts.items,
+                            next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/explore')
@@ -112,12 +116,14 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
+        current_user.genre = form.genre.data
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
+        form.genre.data = current_user.genre
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
 
