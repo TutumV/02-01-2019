@@ -6,6 +6,7 @@
     {% if form %}
     {{ wtf.quick_form(form) }}
     <br>
+    <p><a href="{{ url_for('upload') }}">Upload File</a></p>
     {% endif %}
     {% for post in posts %}
         {% include '_post.html' %}

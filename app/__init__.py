@@ -1,12 +1,15 @@
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
-from flask import Flask
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
+from werkzeug.utils import secure_filename
+
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
