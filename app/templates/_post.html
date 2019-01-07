@@ -1,17 +1,14 @@
-<table class="table table-hover">
-        <tr>
-            <td width="70px">
-                <a href="{{ url_for('user', username=post.author.username) }}">
-                    <img src="{{ post.author.avatar(70) }}" />
-                </a>
-            </td>
-            <td>
-                <a href="{{ url_for('user', username=post.author.username) }}">
-                    {{ post.author.username }}
-                </a>
-                says:
-                <br>
-                {{ post.body }}
-            </td>
-        </tr>
-    </table>
+<div>
+<img alt="Bootstrap Image Preview" src="{{ post.author.avatar(70) }}" class="img-thumbnail" />
+        <div class="col-2 text-truncate">
+	<h4>{{ post.headline }}</h4>
+        </div>
+        <hr align="center" width="1200" color="Red" />
+	<p><a class="btn" href="#">View details »</a>
+	<a href="{{ url_for('user', username=post.username) }}" class="btn btn-warning">Страница автора</a>
+	<a href="{{ post.author.twitter }}" class="btn btn-secondary">Twitter</a>
+	<a href="{{ post.author.youtube }}" class="btn btn-danger">Youtube</a>
+	<a href="{{ post.author.git }}" class="btn btn-success">Git</a>
+	<a href="{{ post.author.facebook }}" class="btn btn-info">Facebook</a>
+	<a href="{{ post.author.vk }}" class="btn btn-primary">VK</a></p>
+</div>

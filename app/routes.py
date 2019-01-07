@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
+#from flask import send_from_directory
 from app import app, db
 import os
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
@@ -43,7 +43,7 @@ def index():
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('index.html', title='Home', posts=posts.items,
-                            next_url=next_url, prev_url=prev_url)
+                            next_url=next_url, prev_url=prev_url, user=user)
 
 
 @app.route('/explore')
@@ -57,7 +57,7 @@ def explore():
     prev_url = url_for('explore', page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('index.html', title='Explore', posts=posts.items,
-                           next_url=next_url, prev_url=prev_url)
+                           next_url=next_url, prev_url=prev_url, user=user)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -122,6 +122,11 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.genre = form.genre.data
+        current_user.twitter = form.twitter.data
+        current_user.youtube = form.youtube.data
+        current_user.git = form.git.data
+        current_user.facebook = form.facebook.data
+        current_user.vk = form.vk.data
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile'))
@@ -129,8 +134,13 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
         form.genre.data = current_user.genre
+        form.twitter.data = current_user.twitter
+        form.youtube.data = current_user.youtube
+        form.git.data = current_user.git
+        form.facebook.data = current_user.facebook
+        form.vk.data = current_user.vk
     return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+                           form=form, user=user)
 
 
 @app.route('/follow/<username>')
@@ -164,31 +174,31 @@ def unfollow(username):
     flash('You are not following {}.'.format(username))
     return redirect(url_for('user', username=username))
 
-@app.route('/upload/<filename>')
-@login_required
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
+#@app.route('/upload/<filename>')
+#@login_required
+#def uploaded_file(filename):
+#    return send_from_directory(app.config['UPLOAD_FOLDER'],
+#                               filename)
 
-def allowed_file(app, filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+#def allowed_file(app, filename):
+#    return '.' in filename and \
+#           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/upload', methods=['GET', 'POST'])
-@login_required
-def upload():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(app, file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('upload.html', title='Upload file')
+#@app.route('/upload', methods=['GET', 'POST'])
+#@login_required
+#def upload():
+#    if request.method == 'POST':
+#        if 'file' not in request.files:
+#            flash('No file part')
+#            return redirect(request.url)
+#        file = request.files['file']
+#        if file.filename == '':
+#            flash('No selected file')
+#            return redirect(request.url)
+#        if file and allowed_file(app, file.filename):
+#            filename = secure_filename(file.filename)
+#            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#            return redirect(url_for('uploaded_file', filename=filename))
+#    return render_template('upload.html', title='Upload file')
 
 

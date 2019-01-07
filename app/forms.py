@@ -39,6 +39,11 @@ class EditProfileForm(FlaskForm):
     genre = SelectMultipleField('Choose your channel genre', choices=(('Sport', \
                                 'Sport'), ('News', 'News'), ('Game', 'Game'), \
                                 ('Movie', 'Movie'), ('Livestyle', 'Livestyle')))
+    twitter = TextAreaField('Enter a link to your twitter account')
+    youtube = TextAreaField('Enter a link to your youtube account')
+    git = TextAreaField('Enter a link to your git account')
+    facebook = TextAreaField('Enter a link to your facebook account')
+    vk = TextAreaField('Enter a link to your vk account')
     submit = SubmitField('Submit')
 
     def __init__(self, original_username, *args, **kwargs):
@@ -54,7 +59,8 @@ class EditProfileForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    headline = TextAreaField('Headline', validators=[DataRequired()])
+    headline = TextAreaField('Enter the title (briefly)', validators=[DataRequired(), \
+                             Length(min=3, max=25)])
     post = TextAreaField('Main Text', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

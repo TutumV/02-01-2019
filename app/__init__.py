@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
-from werkzeug.utils import secure_filename
+#from werkzeug.utils import secure_filename
 
 
 

@@ -23,6 +23,11 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     genre = db.Column(db.PickleType)
+    twitter = db.Column(db.String(120))
+    youtube = db.Column(db.String(120))
+    git = db.Column(db.String(120))
+    facebook = db.Column(db.String(120))
+    vk = db.Column(db.String(120))
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
@@ -70,7 +75,7 @@ def load_user(id):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    headline = db.Column(db.String(40))
+    headline = db.Column(db.String(50))
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
