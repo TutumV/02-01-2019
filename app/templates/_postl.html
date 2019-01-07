@@ -1,48 +1,25 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-		<table class="table table-hover table-bordered">
-		<thead>
-		  <tr>
-		     <th>ID</th>
-		     <th>Post Head</th>
-		     <th>Post Date</th>
-		     <th>Genre</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		  </tr>
-		  <tr class="table-active">
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		  </tr>
-		  <tr class="table-success">
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-	             <td>  </td>
-		  </tr>
-		  <tr class="table-warning">
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		  </tr>
-		  <tr class="table-danger">
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		     <td>  </td>
-		  </tr>
-		  </tbody>
-	          </table>
-		  </div>
+			<div class="card bg-default"> 
+				<h5 class="card-header"><b>ID:</b> {{ post.id }}
+				</h5>
+				<div class="card-body">
+				<p class="card-text"><b>Head:</b> {{ post.headline }}
+				</p>
+				</div>
+				<div class="card-footer">
+                                <p class"card-text"><b>Datetime:</b> {{ post.timestamp }}
+                                </p>
+				</div>
+                                <div class="card-body">
+                                <p class="card-text"><b>Author Genre:</b>{% if user.genre %} 
+                                {{ post.author.genre|join('[ ') }} {% endif %}
+				</p>
+				</div>
+				<p><a class="btn" href="#">View details »</a>				
+                                <hr align="center" width="1200" color="Red" />
+			</div>
+		</div>
 	</div>
 </div>
