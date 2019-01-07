@@ -16,6 +16,12 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+@app.route('/post/<post_id>', methods=['GET'])
+@login_required
+def post(post_id):
+    post = Post.query.filter_by(post_id=post_id).first_or_404()
+    return render_template('post_id.html', post=post)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -28,7 +34,7 @@ def add():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('add'))
-    return render_template('add.html', title='New Post', form=form)
+    return render_template('add.html', title='New Post', form=form, user=user)
 
 
 @app.route('/', methods=['GET', 'POST'])
