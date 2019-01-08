@@ -21,16 +21,6 @@
                     <li><a href="{{ url_for('index') }}">My Post</a></li>
                     <li><a href="{{ url_for('explore') }}">Explore</a></li>
                     <li><a href="{{ url_for('add') }}">Add Post</a></li>
-                    <li class="nav-item dropdown">
-		    	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">Selection by genre</a>
-		    	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-		    	<a class="btn btn-secondary" href="#">Sport</a><p></p>
-                        <a class="btn btn-secondary" href="#">News</a><p></p> 
-                    	<a class="btn btn-secondary" href="#">Game</a><p></p>
-                        <a class="btn btn-secondary" href="#">Movie</a><p></p>
-                        <a class="btn btn-secondary" href="#">Livestyle</a><p></p>
-		    	</div>
-		    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -38,6 +28,7 @@
                     {% else %}
                     <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
+		    </li>
                     {% endif %}
                 </ul>
             </div>

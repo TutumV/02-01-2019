@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
-#from werkzeug.utils import secure_filename
+from flask_debugtoolbar import DebugToolbarExtension
 
 
 
@@ -18,7 +18,7 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
-
+dtb = DebugToolbarExtension(app)
 
 if not os.path.exists('logs'):
     os.mkdir('logs')

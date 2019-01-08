@@ -17,7 +17,7 @@
                                 {{ post.author.genre|join('[ ') }} {% endif %}
 				</p>
 				</div>
-				<p><a class="btn" href="#">View details »</a>				
+				<p><a class="btn" href="{{ url_for('post', post_id=post.post_id) }}">View details »</a>				
                                 <hr align="center" width="1200" color="Red" />
 			</div>
 		</div>
