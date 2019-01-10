@@ -39,7 +39,7 @@ def search():
 @login_required
 def post(post_id):
     post = Post.query.filter_by(post_id=post_id).first_or_404()
-    return render_template('post_id.html', post=post)
+    return render_template('posts/post_id.html', post=post)
 
 
 
@@ -98,7 +98,7 @@ def user(username):
         if posts.has_next else None
     prev_url = url_for('main.user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('user.html', user=user, next_url=next_url,
+    return render_template('user/user.html', user=user, next_url=next_url,
                            prev_url=prev_url, posts=posts.items)
 
 
@@ -128,7 +128,7 @@ def edit_profile():
         form.git.data = current_user.git
         form.facebook.data = current_user.facebook
         form.vk.data = current_user.vk
-    return render_template('edit_profile.html', title='Edit Profile',
+    return render_template('user/edit_profile.html', title='Edit Profile',
                            form=form, user=user)
 
 
