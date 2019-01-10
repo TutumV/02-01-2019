@@ -8,7 +8,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
 from flask_debugtoolbar import DebugToolbarExtension
-
+from elasticsearch import Elasticsearch
 
 
 app = Flask(__name__)
@@ -19,6 +19,9 @@ login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
 dtb = DebugToolbarExtension(app)
+app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+    if app.config['ELASTICSEARCH_URL'] else None
+
 
 if not os.path.exists('logs'):
     os.mkdir('logs')
