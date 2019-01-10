@@ -4,8 +4,10 @@ from time import time
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
-from app import app, db, login
+from app import db, login
 from app.search import add_to_index, remove_from_index, query_index
+from flask import current_app
+
 
 
 class SearchableMixin(object):

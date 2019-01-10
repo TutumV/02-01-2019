@@ -4,8 +4,8 @@
 	<h4>{{ post.headline }}</h4>
         </div>
         <hr align="center" width="1200" color="Red" />
-	<p><a class="btn" href="{{ url_for('post', post_id=post.post_id) }}">View details »</a>
-	<a href="{{ url_for('user', username=post.author.username) }}" class="btn btn-warning">Страница автора</a>
+	<p><a class="btn" href="{{ url_for('main.post', post_id=post.post_id) }}">View details »</a>
+	<a href="{{ url_for('main.user', username=post.author.username) }}" class="btn btn-warning">Страница автора</a>
 	<a href="{{ post.author.twitter }}" class="btn btn-secondary">Twitter</a>
 	<a href="{{ post.author.youtube }}" class="btn btn-danger">Youtube</a>
 	<a href="{{ post.author.git }}" class="btn btn-success">Git</a>
