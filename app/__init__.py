@@ -14,7 +14,7 @@ from elasticsearch import Elasticsearch
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
-login.login_view = 'login'
+login.login_view = 'auth.login'
 bootstrap = Bootstrap()
 dtb = DebugToolbarExtension()
 
