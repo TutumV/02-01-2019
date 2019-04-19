@@ -1,6 +1,8 @@
 import os
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config(object):
@@ -9,3 +11,4 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     POSTS_PER_PAGE = 25
+    ELASTICSEARCH_URL = 'http://127.0.0.1:9200/'
